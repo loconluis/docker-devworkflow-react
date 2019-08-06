@@ -9,3 +9,16 @@ before_install:
 
 script:
   - docker run -e CI=true loconluis/docker-devworkflow-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react-workflow"
+  env: "DockerReactWorkflow-env"
+  bucket_name: "elasticbeanstalk-us-east-2-648809378856"
+  bucket_path: "docker-react-workflow"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
